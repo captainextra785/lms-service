@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
-const dbURL = process.env.MONGODB_URL || 'test-1';
-console.log("dbURL: ", dbURL)
+const dbURL = process.env.MONGODB_URL;
 exports.connectDB = () => {
     mongoose.connect(dbURL)
     .then(() => {
