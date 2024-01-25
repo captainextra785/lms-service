@@ -24,8 +24,9 @@ app.get('/', (req, res) => {
     return res.send("Welcome to LMS service");
 })
 
+connectDB();
+
 app.listen(PORT, () => {
-    connectDB();
     console.log("App is running at port: ", PORT);
 })
 
