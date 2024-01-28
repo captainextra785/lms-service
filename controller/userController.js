@@ -1,4 +1,4 @@
-
+const bcrypt = require('bcrypt')
 const User = require("../models/User")
 
 const {
@@ -10,8 +10,8 @@ exports.createUser = async (req, res) => {
     try{
 
         const { 
-            firstName,lastName='',email='',phone,role, dob,address='',
-            city,state,country,pin,aadhar='',profileURL='',createdBy
+            firstName, lastName='', email='', phone,role, dob, address='',
+            city, state, country, pin, aadhar='',profileURL='',createdBy
         } = req.body;
 
         const creatorUser = await User.findById(createdBy);
@@ -27,8 +27,15 @@ exports.createUser = async (req, res) => {
             })
         }
         
+        const password = await bcrypt.hash('admin', 10);
+        if(!password){
+            return res.status(500).json({
+                message: 'Internal server error',
+            })   
+        }
+
         const user = await User.create({
-            firstName,lastName,email,phone,role,dob,address,
+            firstName,lastName,email,phone, password,role,dob,address,
             city,state,country,pin,aadhar,profileURL,createdBy,
         })
         
