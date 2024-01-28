@@ -8,6 +8,10 @@ const {connectDB} = require('./config/mongoDB')
 
 // Router import
 const userRouter = require('./routes/user');
+const authRouter = require('./routes/authentication');
+
+// import middleware
+const { verifyUser } = require('./middleware/auth')
 
 const app = express();
 app.use(cors());
@@ -15,8 +19,8 @@ app.use(express.json());
 
 
 // router integration
-app.use('/api/', userRouter);
-
+app.use('/api/', verifyUser, userRouter);
+app.use('/api/', authRouter);
 
 const PORT = process.env.PORT || 4321
 

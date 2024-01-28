@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        default: 'admin',
+        default: '',
     },
     createdAt: {
         type: Date,
