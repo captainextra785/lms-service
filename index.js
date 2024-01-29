@@ -20,7 +20,7 @@ app.use(express.json());
 
 // router integration
 app.use('/api/', verifyUser, userRouter);
-app.use('/api/', authRouter);
+app.use('/api/auth', authRouter);
 
 const PORT = process.env.PORT || 4321
 
