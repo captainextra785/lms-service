@@ -69,3 +69,33 @@ exports.getUsers = async(req, res) => {
         message: 'Internal server error',
     })
 }
+
+exports.getUser = async (req, res) => {
+    try{
+        const {creatorInfo = false} = req.query;
+        const userId = req.params.id || '';
+
+        let user = null;
+        if(creatorInfo){
+            user = await User.findById(userId).populate('createdBy');
+        }else{
+            user = await User.findById(userId);
+        }
+
+        if(!user){
+            return res.status(404).json({
+                message: 'User not found!',
+            })
+        }
+
+        return res.status(200).json({
+            user: user,
+            message: 'User found!'
+        })
+    }catch(err){
+        console.log("Error while fetching user: ", err);
+    }
+    return res.status(500).json({
+        message: 'Internal server error'
+    })
+}
