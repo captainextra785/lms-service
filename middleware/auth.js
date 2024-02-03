@@ -5,7 +5,7 @@ exports.verifyUser = async (req, res, next) => {
         
         const token = req.headers.authorization?.replace("Bearer ","") || null;
         if(!token){
-            return res.status(403).json({
+            return res.status(201).json({
                 success:false,
                 message:"Please login again!"
             })
@@ -17,7 +17,8 @@ exports.verifyUser = async (req, res, next) => {
     }catch(err){
         console.log("Error while authenticating user: ", err);
     }
-    res.status(500).json({
-        message: 'Internal server error'
+    return res.status(201).json({
+        success:false,
+        message:"Please login again!"
     })
 }
