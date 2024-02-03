@@ -13,12 +13,14 @@ const authRouter = require('./authentication');
 const authorRoute = require('./author');
 const publicationRouter = require('./publication');
 const bookRouter = require('./book');
+const imageRouter = require('./image');
 
 // router integration protected
 protectedRouter.use('/user', userRouter);
 protectedRouter.use('/author', authorRoute);
 protectedRouter.use('/publication', publicationRouter);
 protectedRouter.use('/book', bookRouter);
+protectedRouter.use('/image', imageRouter);
 
 // router integraton unprotected.
 unprotectedRouter.use('/auth', authRouter);

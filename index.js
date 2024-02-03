@@ -5,6 +5,7 @@ const cookieParse = require('cookie-parser');
 
 // config import
 const {connectDB} = require('./config/mongoDB')
+const { configureCloudinary } = require('./config/cloudinary');
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 })
 
 connectDB();
+configureCloudinary();
 
 app.listen(PORT, () => {
     console.log("App is running at port: ", PORT);
