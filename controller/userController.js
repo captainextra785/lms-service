@@ -10,7 +10,7 @@ exports.createUser = async (req, res) => {
     try{
 
         const { 
-            firstName, lastName='', email='', phone,role, dob, address='',
+            firstName, lastName='', gender, email='', phone,role, dob, address='',
             city, state, country, pin, aadhar='',profileURL='',createdBy
         } = req.body;
 
@@ -35,7 +35,7 @@ exports.createUser = async (req, res) => {
         }
 
         const user = await User.create({
-            firstName,lastName,email,phone, password,role,dob,address,
+            firstName,lastName,email,phone, gender, password,role,dob,address,
             city,state,country,pin,aadhar,profileURL,createdBy,
         })
         
