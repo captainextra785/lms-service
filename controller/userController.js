@@ -14,7 +14,7 @@ exports.createUser = async (req, res) => {
             city, state, country, pin, aadhar='',profileURL='',createdBy
         } = req.body;
 
-        const creatorUser = await User.findById(createdBy);
+        const creatorUser = req.user;
         if(!creatorUser || creatorUser.role === TYPE_USER || (role && role === TYPE_SUPER_ADMIN)){
             return res.status(400).json({
                 message: !creatorUser ? "No operator found" : "Operator doesn't have permission",
@@ -46,7 +46,7 @@ exports.createUser = async (req, res) => {
     }catch(err){
         console.log("Error while creating user: ", err);
     }
-    res.status(500).json({
+    return res.status(500).json({
         message: 'Internal server error',
     })
 }
