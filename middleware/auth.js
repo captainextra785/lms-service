@@ -3,7 +3,7 @@ const User = require('../models/User')
 
 exports.verifyUser = async (req, res, next) => {
     try{
-        
+         
         const token = req.headers.authorization?.replace("Bearer ","") || null;
         if(!token){
             return res.status(201).json({
