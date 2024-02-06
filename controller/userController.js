@@ -99,3 +99,18 @@ exports.getUser = async (req, res) => {
         message: 'Internal server error'
     })
 }
+
+
+exports.getAuthUser = async (req ,res) => {
+    try{
+        return res.status(200).json({
+            message: 'User found!',
+            user: req.user,
+        })
+    }catch(err){
+        console.log("Error while fetchig auth user: ", err);
+    }
+    return res.status(201).json({ // for Login request
+        message: 'Unable to fetch user'
+    })
+}
