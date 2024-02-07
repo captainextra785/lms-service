@@ -32,7 +32,7 @@ exports.createBook = async (req, res) => {
                 message: 'Invalid book information'
             })
         }
-        console.log("Error while creating book: ", err?.name);
+        console.log("Error while creating book: ", err);
     }
     res.status(500).json({
         message: 'Internal server error',
@@ -75,14 +75,30 @@ exports.getBook = async(req, res) => {
 exports.searchBook = async(req, res) => {
     try{
 
-        const { query } = req.query;
+        let { query = '' } = req.query;
+        const { filters  = []} = req.body;
+        
+        let searchQuery = query ? {$text : {$search: query}} : {};
 
-        if(!query){
-            // const books = await Book.find().sort({
-            //     'createdAt'
-            // })
+        const filterQuery = filters.reduce((acc, filter) => {
+            return {
+                ...acc,
+                [filter.key]: filter.value,
+            }
+        }, {})
+        
+        searchQuery = {
+            ...searchQuery, 
+            ...filterQuery
         }
+        const books = await Book.find({
+            ...searchQuery
+        })
 
+        return res.status(200).json({
+            message: 'Book Found!',
+            books
+        })
     }catch(err){
         console.log("Error while searching books: ", err);
     }
