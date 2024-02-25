@@ -3,3 +3,5 @@
 exports.TYPE_USER = 'USER'
 exports.TYPE_MANAGER = 'MANAGER'
 exports.TYPE_SUPER_ADMIN = 'SUPER_ADMIN'
+
+exports.DEFAULT_BOOK_CATEGORY = 'ALL'

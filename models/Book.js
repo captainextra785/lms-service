@@ -1,14 +1,19 @@
 const mongoose = require('mongoose')
+const { DEFAULT_BOOK_CATEGORY } = require('../helper/constants')
 
 const bookModel = new mongoose.Schema({
-    isbn: {
+    bookNumber: {
         type: String,
         default: ''
+    },
+    bookId:{
+        type: String,
+        required: true,
     },
     name:{
         type: String,
         required: true,
-        unique: true,
+        unique: false,
     },
     totalPages: {
         type: Number,
@@ -19,7 +24,7 @@ const bookModel = new mongoose.Schema({
     },
     category: {
         type: String,
-        default: 'ALL'
+        default: DEFAULT_BOOK_CATEGORY,
     },
     description: {
         type: String,
@@ -60,18 +65,21 @@ const bookModel = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
     edition: {
         type: String,
         default: ''
-    }
+    },
+},
+{
+    timestamps: true,
 });
 bookModel.index({
     name: 'text',
-    language: 'text',
-    category: 'text',
+    description: 'text',
+    bookNumber: 'text',
+    bookId: 'text'
+},
+{
+    unique: false,
 })
 module.exports = mongoose.model('Book', bookModel);
